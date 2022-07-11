@@ -4,57 +4,101 @@ import * as d3 from "d3";
 import "./chapter3.css"
 
 // const dataURI = "https://raw.githubusercontent.com/d3js-in-action-third-edition/code-files/main/chapter_03/3.2-Preparing_data/start/data/data.csv"
-const dataURI = "https://raw.githubusercontent.com/JaseZiv/worldfootballR_data/master/raw-data/all_leages_and_cups/all_competitions.csv"
+const dataURI = "https://raw.githubusercontent.com/siansell/d3-playground/main/src/fa-cup-winners.csv"
 
 const Chapter2 = () => {
     useEffect(() => {
         let svg;
 
+        const xPosition = 150;
+
         const createViz = vizData => {
-            const barHeight = 20;
-            const padding = 5;
+            const xScale = d3.scaleLinear()
+                .domain([0, d3.max(vizData, d => d.count)])
+                .range([0, 500])
+
+            const yScale = d3.scaleBand()
+                .domain(vizData.map(d => d.winner))
+                .range([0, 700])
+                .paddingInner(0.2)
+
+            const bar = svg
+                .selectAll('g')
+                .data(vizData)
+                .join("g")
+                    .attr("transform", d => `translate(0, ${yScale(d.winner)})`)
+            
+            bar
+                .append("rect")
+                .attr("class", "bar")
+                .attr("width", d => xScale(d.count))
+                .attr("height", yScale.bandwidth())
+                .attr("x", xPosition)
+                .attr("y", 0)
+                .attr("fill", d => {
+                    switch (d.winner) {
+                        case "arsenal":
+                            return "red"
+                        case "tottenham hotspur":
+                            return "#eee"
+                        default:
+                            return "#bada55"
+                    }
+                })
+
+            bar
+                .append("text")
+                    .text(d => d.winner)
+                    .attr("x", xPosition - 4)
+                    .attr("y", 12)
+                    .attr("text-anchor", "end")
+                    .style("font-size", "11px");
+
+            bar
+                .append("text")
+                    .text(d => d.count)   
+                    .attr("x", d => xPosition + xScale(d.count) + 4)
+                    .attr("y", 12)       
+                    .style("font-size", "9px");
 
             svg
-                .selectAll("rect")
-                .data(vizData)
-                .join("rect")
-                    .attr("class", d => {
-                        console.log(d)
-                        return "bar"
-                    })
-                    .attr("width", d => d.count)
-                    .attr("height", barHeight)
-                    .attr("y", (d, i) => (barHeight  + padding) * i)
-                    .attr("fill", d => d.technology === "D3.js" ? "red" : "#bada55")
+                .append("line")
+                    .attr("x1", xPosition)
+                    .attr("y1", 0)
+                    .attr("x2", xPosition)
+                    .attr("y2", 700)
+                    .attr("stroke", "black");                    
         }
 
         const init = async () => {     
             svg = d3.select(".responsive-svg-container")
                 .append("svg")
-                    .attr("viewBox", "0 0 1200 1600")
+                    .attr("viewBox", "0 0 700 700")
                     // .style("border", "1px solid black")
 
-            const data = await d3.csv(dataURI, d => {
-                // return {
-                //     competition_name: d.competition_name,
-                // }
-                return d
-            })
-
-            console.log(data.filter(d => d.competition_name === "FA Cup"))
-
-            // const distinctValues = [...new Set(data.map((d) => d.competition_name))].sort()
-            // console.log(distinctValues)
+            const data = await d3.csv(dataURI, d => ({
+                winner: d.Winner.trim().toLowerCase(),
+                year: Number(d.Year) // handles "1993 - replay" etc
+            }))
+            const filteredData = data.filter(x => !isNaN(x.year)) // removes replays etc
+            const groupedData = d3.flatRollup(filteredData, v => v.length, d => d.winner) // prob not the most efficient
+                .sort((a, b) => b[1] - a[1])
+                .map(x => ({
+                    winner: x[0],
+                    count: x[1]
+                }))
             
-            // const sortedData = data.sort((a, b) => b.count - a.count)
-            // createViz(sortedData)
+            createViz(groupedData)
         }
 
         init();
     }, [])
 
     return (
-        <div className="responsive-svg-container"></div>
+        <>
+            <h1>FA Cup Winners</h1>
+            <div className="responsive-svg-container"></div>
+        </>
     )
 }
 
