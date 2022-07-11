@@ -78,9 +78,9 @@ const Chapter2 = () => {
 
             const data = await d3.csv(dataURI, d => ({
                 winner: d.Winner.trim().toLowerCase(),
-                year: Number(d.Year) // handles "1993 - replay" etc
+                year: Number(d.Year) // handles "1993 - replay" etc, filtered out on next line
             }))
-            const filteredData = data.filter(x => !isNaN(x.year)) // removes replays etc
+            const filteredData = data.filter(x => !isNaN(x.year))
             const groupedData = d3.flatRollup(filteredData, v => v.length, d => d.winner) // prob not the most efficient
                 .sort((a, b) => b[1] - a[1])
                 .map(x => ({

@@ -1,0 +1,10 @@
+#line-chart {
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    max-width: 1000px;
+}
+
+h1 {
+    font-weight: 400;
+}
