@@ -2,16 +2,6 @@
 
 Working through https://livebook.manning.com/book/d3js-in-action-third-edition
 
-## Random notes
+Noticed this third edition is not complete yet! So have reached end of chapter 5 and reverted to second edition.
 
-### SVG
-
-- Something to keep in mind when you’re trying to align shapes in a visualization is that strokes are drawn evenly over the inside and the outside border of SVG shapes.
-
-- Why is there a primitive `<circle />` element, isn't `<ellipse />` sufficient? Compare that there is no `<square />` element. Same for `<line />`.
-
-- a rule of thumb that is generally accepted is that we should consider using canvas rather than SVG if a visualization contains more than 1000 elements.
-
-### Chapter 3 Data
-
-- "Discrete data consists of whole numbers, also called integers, that cannot be subdivided.". What? Discrete data is not necessarily integers.
+- The d3 world/community is *heavily* dependent on one person (Mike Bostock). This doesn't seem  particularly healthy to me. How is the community organised and how are decisions on the d3 project direction taken?
