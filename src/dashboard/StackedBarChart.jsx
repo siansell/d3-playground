@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react"
 import PropTypes from "prop-types"
 import * as d3 from "d3";
 
-const StackedBarChart = ({ data, chartId }) => {
+const StackedBarChart = ({ data, chartId, chartTitle }) => {
     const [mode, setMode] = useState('absolute') // || percentage
     const isInitialisedRef = useRef(false)
 
@@ -154,6 +154,7 @@ const StackedBarChart = ({ data, chartId }) => {
 
     return (
         <div className="dashboard-chart">
+            {chartTitle && <h2>{chartTitle}</h2>}
             <button onClick={handleSetMode}>
                 {mode}
             </button>
@@ -164,7 +165,11 @@ const StackedBarChart = ({ data, chartId }) => {
 
 StackedBarChart.propTypes = {
     chartId: PropTypes.string.isRequired,
+    chartTitle: PropTypes.string,
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
+}
+StackedBarChart.defaultProps = {
+    chartTitle: null,
 }
 
 export default StackedBarChart

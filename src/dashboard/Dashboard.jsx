@@ -14,9 +14,9 @@ const Dashboard = () => {
             <hr />
             <p>TODO dashboard level settings filters etc</p>
             <hr />
-            <div style={{ display: 'flex' }}>
-                <StackedBarChart data={data} chartId="chart1" />
-                <StackedBarChart data={data} chartId="chart2" />
+            <div className="dashboard-charts">
+                <StackedBarChart data={data} chartId="chart1" chartTitle="Costs" />
+                {/* <StackedBarChart data={data} chartId="chart2" /> */}
             </div>
         </>
     )
