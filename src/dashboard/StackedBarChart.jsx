@@ -36,6 +36,7 @@ const StackedBarChart = ({ data, chartId, chartTitle }) => {
 
             innerChart.current = svg
                 .append("g")
+                .attr("class", "inner-chart")
                 .attr("transform", `translate(${margin.left}, ${margin.top})`)
 
 
