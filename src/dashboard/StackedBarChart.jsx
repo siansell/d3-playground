@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import * as d3 from "d3";
 
 const StackedBarChart = ({ data, chartId, chartTitle }) => {
-    const [mode, setMode] = useState('absolute') // || percentage
+    const [mode, setMode] = useState('absolute') // 'absolute' || 'percentage'
     const isInitialisedRef = useRef(false)
 
     const innerChart = useRef(null);
@@ -31,7 +31,6 @@ const StackedBarChart = ({ data, chartId, chartTitle }) => {
         const init = () => {
             const svg = d3.select(`#${chartId}`)
                 .append("svg")
-                // .style("border", "1px solid black")
                 .style("height", "500px")
                 .style("width", "500px")
 
@@ -55,7 +54,6 @@ const StackedBarChart = ({ data, chartId, chartTitle }) => {
                 .call(bottomAxis)
                 .attr('transform', `translate(0, ${innerHeight})`);
 
-            // maintenance
             innerChart.current.append('g').classed('bars', true)
 
             isInitialisedRef.current = true;
