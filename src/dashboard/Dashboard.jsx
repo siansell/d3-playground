@@ -16,7 +16,7 @@ const Dashboard = () => {
             <hr />
             <div className="dashboard-charts">
                 <StackedBarChart data={data} chartId="chart1" chartTitle="Costs" />
-                {/* <StackedBarChart data={data} chartId="chart2" /> */}
+                <StackedBarChart data={data} chartId="chart2" chartTitle="More costs" />
             </div>
         </>
     )

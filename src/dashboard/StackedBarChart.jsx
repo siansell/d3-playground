@@ -10,7 +10,7 @@ const StackedBarChart = ({ data, chartId, chartTitle }) => {
     const yScale = useRef(null);
     const xScale = useRef(null);
 
-    const margin = { top: 40, right: 170, bottom: 25, left: 40 };
+    const margin = { top: 40, right: 20, bottom: 40, left: 40 };
     const width = 500;
     const height = 500;
     const innerWidth = width - margin.left - margin.right;
@@ -31,8 +31,8 @@ const StackedBarChart = ({ data, chartId, chartTitle }) => {
         const init = () => {
             const svg = d3.select(`#${chartId}`)
                 .append("svg")
-                .style("height", "500px")
-                .style("width", "500px")
+                .style("height", height)
+                .style("width", width)
 
             innerChart.current = svg
                 .append("g")
@@ -145,7 +145,7 @@ const StackedBarChart = ({ data, chartId, chartTitle }) => {
             init();
         }
         update();
-    }, [mode, data, chartId])
+    }, [mode, data, chartId, innerHeight, innerWidth, margin.left, margin.top])
 
     const handleSetMode = () => {
         setMode(mode === 'absolute' ? 'percentage' : 'absolute')
