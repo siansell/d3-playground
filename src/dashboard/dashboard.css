@@ -1,0 +1,19 @@
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+}
+
+hr {
+    margin: 20px 0;
+}
+
+.dashboard-charts {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dashboard-chart {
+    border: 1px dashed #d3d3d3;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    padding: 20px;
+}
