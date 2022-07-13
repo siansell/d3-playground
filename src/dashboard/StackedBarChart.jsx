@@ -2,6 +2,12 @@ import React, { useEffect, useState, useRef } from "react"
 import PropTypes from "prop-types"
 import * as d3 from "d3";
 
+const margin = { top: 40, right: 20, bottom: 40, left: 40 };
+const width = 500;
+const height = 500;
+const innerWidth = width - margin.left - margin.right;
+const innerHeight = height - margin.top - margin.bottom;
+
 const StackedBarChart = ({ data, chartId, chartTitle }) => {
     const [mode, setMode] = useState('absolute') // 'absolute' || 'percentage'
     const isInitialisedRef = useRef(false)
@@ -9,12 +15,6 @@ const StackedBarChart = ({ data, chartId, chartTitle }) => {
     const innerChart = useRef(null);
     const yScale = useRef(null);
     const xScale = useRef(null);
-
-    const margin = { top: 40, right: 20, bottom: 40, left: 40 };
-    const width = 500;
-    const height = 500;
-    const innerWidth = width - margin.left - margin.right;
-    const innerHeight = height - margin.top - margin.bottom;
 
     useEffect(() => {
         //process data
@@ -145,7 +145,7 @@ const StackedBarChart = ({ data, chartId, chartTitle }) => {
             init();
         }
         update();
-    }, [mode, data, chartId, innerHeight, innerWidth, margin.left, margin.top])
+    }, [mode, data, chartId])
 
     const handleSetMode = () => {
         setMode(mode === 'absolute' ? 'percentage' : 'absolute')
