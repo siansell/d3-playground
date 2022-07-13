@@ -1,0 +1,9 @@
+hr {
+    margin: 20px 0;
+}
+
+.dashboard-chart {
+    border: 1px dashed #d3d3d3;
+    margin-right: 20px;
+    padding: 20px;
+}
