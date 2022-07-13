@@ -146,7 +146,7 @@ const StackedBarChart = ({ data, chartId }) => {
             init();
         }
         update();
-    }, [mode])
+    }, [mode, data, chartId])
 
     const handleSetMode = () => {
         setMode(mode === 'absolute' ? 'percentage' : 'absolute')
